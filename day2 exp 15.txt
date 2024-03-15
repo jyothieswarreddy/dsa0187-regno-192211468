@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+// Forward declaration of the Matrix class to make it a friend of Complex
+class Matrix;
+
+class Complex {
+private:
+    double real, imag;
+
+public:
+    Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {}
+
+    // Friend declaration
+    friend class Matrix;
+
+    void display() const {
+        cout << "Complex number: " << real << " + " << imag << "i" << endl;
+    }
+};
+
+class Matrix {
+public:
+    // Multiplies a Complex number by a constant and returns the result by reference
+    // Note: This simplistic example assumes the multiplication needs to be performed inline and
+    // the result is immediately consumed. Returning a local object by reference is generally unsafe.
+    Complex& multiply(Complex& c, double constant) {
+        c.real *= constant;
+        c.imag *= constant;
+        return c;
+    }
+};
+
+int main() {
+    Complex c1(3, 4);
+    cout << "Before multiplication: ";
+    c1.display();
+
+    Matrix m;
+    Complex& result = m.multiply(c1, 2); // Multiply c1 by 2
+
+    cout << "After multiplication: ";
+    result.display();
+
+    return 0;
+}
+/*
+output:
+Before multiplication: Complex number: 3 + 4i
+After multiplication: Complex number: 6 + 8i
+*/

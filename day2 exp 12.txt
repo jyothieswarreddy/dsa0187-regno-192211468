@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int id;
+    float grades[3]; // Array to store grades in three subjects
+
+public:
+    // Constructor
+    Student() : id(0) { // Initialize id to 0 and grades to 0.0 by default
+        for (int i = 0; i < 3; ++i) {
+            grades[i] = 0.0;
+        }
+    }
+
+    // Setter for the student's name
+    void setName(const string& newName) {
+        name = newName;
+    }
+
+    // Setter for the student's ID
+    void setId(int newId) {
+        id = newId;
+    }
+
+    // Setter for the student's grades
+    void setGrades(const float newGrades[3]) {
+        for (int i = 0; i < 3; ++i) {
+            grades[i] = newGrades[i];
+        }
+    }
+
+    // Getter for the student's name
+    string getName() const {
+        return name;
+    }
+
+    // Getter for the student's ID
+    int getId() const {
+        return id;
+    }
+
+    // Getter for the student's grades
+    // Returns a pointer to the first element of the grades array
+    const float* getGrades() const {
+        return grades;
+    }
+
+    // Function to print student details
+    void printDetails() const {
+        cout << "Student Name: " << name << endl;
+        cout << "Student ID: " << id << endl;
+        cout << "Grades: ";
+        for (int i = 0; i < 3; ++i) {
+            cout << grades[i];
+            if (i < 2) cout << ", ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Student student1;
+    student1.setName("John Doe");
+    student1.setId(12345);
+    float grades[] = {88.5, 92.3, 85.0};
+    student1.setGrades(grades);
+
+    student1.printDetails();
+
+    return 0;
+}
+/*
+output:
+Student Name: John Doe
+Student ID: 12345
+Grades: 88.5, 92.3, 85
+*/

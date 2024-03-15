@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    double salary;
+
+public:
+    // Constructor to initialize an Employee object
+    Employee(const string& name, double salary) : name(name), salary(salary) {}
+
+    // Getter for salary (needed for calculating average salary)
+    double getSalary() const {
+        return salary;
+    }
+
+    // Static function to calculate average salary of an array of Employee objects
+    static double calculateAverageSalary(const vector<Employee>& employees) {
+        if (employees.empty()) return 0.0; // Avoid division by zero
+
+        double totalSalary = 0.0;
+        for (const auto& employee : employees) {
+            totalSalary += employee.getSalary();
+        }
+
+        return totalSalary / employees.size();
+    }
+};
+
+int main() {
+    // Creating a vector of Employee objects
+    vector<Employee> employees = {
+        Employee("John Doe", 50000),
+        Employee("Jane Doe", 60000),
+        Employee("Alice", 70000),
+        Employee("Bob", 80000)
+    };
+
+    // Calculating and displaying the average salary
+    cout << "The average salary of the employees is: $"
+         << Employee::calculateAverageSalary(employees) << endl;
+
+    return 0;
+}
+/*
+output:
+The average salary of the employees is: $65000
+*/

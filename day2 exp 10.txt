@@ -1,0 +1,40 @@
+#include <iostream>
+
+using namespace std;
+
+class Rectangle {
+private:
+    // Static data member to keep track of the number of Rectangle objects created
+    static int count;
+
+public:
+    // Constructor
+    Rectangle() {
+        // Increment count for every new object created
+        ++count;
+    }
+
+    // Static member function to get the count of Rectangle objects
+    static int countRectangles() {
+        return count;
+    }
+};
+
+// Initialize static member of class Rectangle
+int Rectangle::count = 0;
+
+int main() {
+    // Creating Rectangle objects
+    Rectangle rect1;
+    Rectangle rect2;
+    Rectangle rect3;
+
+    // Display the total number of Rectangle objects created
+    cout << "Total number of Rectangle objects created: " << Rectangle::countRectangles() << endl;
+
+    return 0;
+}
+/*
+output:
+Total number of Rectangle objects created: 3
+*/
