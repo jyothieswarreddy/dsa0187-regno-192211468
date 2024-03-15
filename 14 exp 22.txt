@@ -1,0 +1,93 @@
+#include <iostream>
+using namespace std;
+
+class Complex {
+private:
+    double real;
+    double imag;
+
+public:
+    // Constructor
+    Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {}
+
+    // Friend function for addition
+    friend Complex add(const Complex& c1, const Complex& c2);
+
+    // Friend function for subtraction
+    friend Complex subtract(const Complex& c1, const Complex& c2);
+
+    // Friend function for multiplication
+    friend Complex multiply(const Complex& c1, const Complex& c2);
+
+    // Friend function for division
+    friend Complex divide(const Complex& c1, const Complex& c2);
+
+    // Function to display complex number
+    void display() const {
+        cout << real << " + " << imag << "i";
+    }
+};
+
+// Friend function definitions
+Complex add(const Complex& c1, const Complex& c2) {
+    return Complex(c1.real + c2.real, c1.imag + c2.imag);
+}
+
+Complex subtract(const Complex& c1, const Complex& c2) {
+    return Complex(c1.real - c2.real, c1.imag - c2.imag);
+}
+
+Complex multiply(const Complex& c1, const Complex& c2) {
+    return Complex((c1.real * c2.real) - (c1.imag * c2.imag), (c1.real * c2.imag) + (c1.imag * c2.real));
+}
+
+Complex divide(const Complex& c1, const Complex& c2) {
+    double denominator = (c2.real * c2.real) + (c2.imag * c2.imag);
+    return Complex(((c1.real * c2.real) + (c1.imag * c2.imag)) / denominator,
+                   ((c1.imag * c2.real) - (c1.real * c2.imag)) / denominator);
+}
+
+int main() {
+    Complex c1(3.0, 4.0); // 3 + 4i
+    Complex c2(1.0, -2.0); // 1 - 2i
+
+    cout << "Complex numbers:" << endl;
+    cout << "c1 = ";
+    c1.display();
+    cout << endl;
+    cout << "c2 = ";
+    c2.display();
+    cout << endl;
+
+    Complex sum = add(c1, c2);
+    cout << "Addition: ";
+    sum.display();
+    cout << endl;
+
+    Complex diff = subtract(c1, c2);
+    cout << "Subtraction: ";
+    diff.display();
+    cout << endl;
+
+    Complex prod = multiply(c1, c2);
+    cout << "Multiplication: ";
+    prod.display();
+    cout << endl;
+
+    Complex div = divide(c1, c2);
+    cout << "Division: ";
+    div.display();
+    cout << endl;
+
+    return 0;
+}
+/*
+output:
+Complex numbers:
+c1 = 3 + 4i
+c2 = 1 + -2i
+Addition: 4 + 2i
+Subtraction: 2 + 6i
+Multiplication: 11 + -2i
+Division: -1 + 2i
+*/
