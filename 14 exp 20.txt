@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+// Function prototype for calculating the area of a rectangle
+double calculateArea(double length = 1.0, double width = 1.0);
+
+// Function prototype for calculating the perimeter of a rectangle
+double calculatePerimeter(double length = 1.0, double width = 1.0);
+
+int main() {
+    double length, width;
+
+    cout << "Enter the length of the rectangle: ";
+    cin >> length;
+
+    cout << "Enter the width of the rectangle: ";
+    cin >> width;
+
+    double area = calculateArea(length, width);
+    double perimeter = calculatePerimeter(length, width);
+
+    cout << "Area of the rectangle: " << area << endl;
+    cout << "Perimeter of the rectangle: " << perimeter << endl;
+
+    return 0;
+}
+
+// Function definition for calculating the area of a rectangle
+double calculateArea(double length, double width) {
+    return length * width;
+}
+
+// Function definition for calculating the perimeter of a rectangle
+double calculatePerimeter(double length, double width) {
+    return 2 * (length + width);
+}
+/*
+output:
+Enter the length of the rectangle: 9
+Enter the width of the rectangle: 5
+Area of the rectangle: 45
+Perimeter of the rectangle: 28
+*/

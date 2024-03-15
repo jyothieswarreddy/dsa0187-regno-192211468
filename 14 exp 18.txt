@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Car {
+private:
+    string model;
+    int year;
+    double price;
+
+public:
+    // Constructor with default values for year and price
+    Car(string m, int y = 2022, double p = 0.0) : model(m), year(y), price(p) {}
+
+    // Function to display car details
+    void display() {
+        cout << "Model: " << model << ", Year: " << year << ", Price: $" << price << endl;
+    }
+};
+
+int main() {
+    const int numCars = 3;
+    Car cars[numCars] = {
+        Car("Toyota Camry"),
+        Car("Honda Civic", 2020),
+        Car("Ford Mustang", 2018, 35000.0)
+    };
+
+    cout << "Car Details:" << endl;
+    for (int i = 0; i < numCars; ++i) {
+        cars[i].display();
+    }
+
+    return 0;
+}
+/*
+output:
+Car Details:
+Model: Toyota Camry, Year: 2022, Price: $0
+Model: Honda Civic, Year: 2020, Price: $0
+Model: Ford Mustang, Year: 2018, Price: $35000
+*/
