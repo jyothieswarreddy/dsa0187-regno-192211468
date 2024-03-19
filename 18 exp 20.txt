@@ -1,0 +1,76 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+// Base class
+class Shape {
+public:
+    virtual void draw() const = 0; // Pure virtual function
+};
+
+// Derived class Circle
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    Circle(double r) : radius(r) {}
+
+    void draw() const override {
+        cout << "Drawing Circle with radius " << radius << endl;
+    }
+};
+
+// Derived class Rectangle
+class Rectangle : public Shape {
+private:
+    double width, height;
+
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+
+    void draw() const override {
+        cout << "Drawing Rectangle with width " << width << " and height " << height << endl;
+    }
+};
+
+// Derived class Triangle
+class Triangle : public Shape {
+private:
+    double side1, side2, side3;
+
+public:
+    Triangle(double s1, double s2, double s3) : side1(s1), side2(s2), side3(s3) {}
+
+    void draw() const override {
+        cout << "Drawing Triangle with sides " << side1 << ", " << side2 << ", " << side3 << endl;
+    }
+};
+
+int main() {
+    // Create an array of pointers to Shape objects
+    vector<Shape*> shapes;
+    shapes.push_back(new Circle(5.0));
+    shapes.push_back(new Rectangle(4.0, 6.0));
+    shapes.push_back(new Triangle(3.0, 4.0, 5.0));
+
+    // Call draw() for each shape
+    for (Shape* shape : shapes) {
+        shape->draw();
+    }
+
+    // Free memory
+    for (Shape* shape : shapes) {
+        delete shape;
+    }
+
+    return 0;
+}
+/*
+output:
+Drawing Circle with radius 5
+Drawing Rectangle with width 4 and height 6
+Drawing Triangle with sides 3, 4, 5
+*/

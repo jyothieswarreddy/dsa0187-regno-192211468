@@ -1,0 +1,106 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base class
+class BankAccount {
+protected:
+    string accountNumber;
+    double balance;
+
+public:
+    // Constructor
+    BankAccount(string accNum, double bal) : accountNumber(accNum), balance(bal) {}
+
+    // Deposit money
+    void deposit(double amount) {
+        balance += amount;
+        cout << "Deposited " << amount << " successfully.\n";
+    }
+
+    // Withdraw money
+    virtual void withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            cout << "Withdrawn " << amount << " successfully.\n";
+        } else {
+            cout << "Insufficient balance.\n";
+        }
+    }
+
+    // Display balance
+    void displayBalance() {
+        cout << "Account Number: " << accountNumber << endl;
+        cout << "Balance: " << balance << endl;
+    }
+};
+
+// Derived class SavingsAccount
+class SavingsAccount : public BankAccount {
+public:
+    SavingsAccount(string accNum, double bal) : BankAccount(accNum, bal) {}
+
+    // Withdraw money with interest calculation
+    void withdraw(double amount) override {
+        double interest = balance * 0.05; // Assuming 5% interest rate
+        if (balance + interest >= amount) {
+            balance = balance + interest - amount;
+            cout << "Withdrawn " << amount << " successfully.\n";
+        } else {
+            cout << "Insufficient balance.\n";
+        }
+    }
+};
+
+// Derived class CurrentAccount
+class CurrentAccount : public BankAccount {
+public:
+    CurrentAccount(string accNum, double bal) : BankAccount(accNum, bal) {}
+
+    // Withdraw money with overdraft limit
+    void withdraw(double amount) override {
+        double overdraftLimit = 1000; // Assuming overdraft limit of 1000
+        if (balance + overdraftLimit >= amount) {
+            balance -= amount;
+            cout << "Withdrawn " << amount << " successfully.\n";
+        } else {
+            cout << "Overdraft limit exceeded.\n";
+        }
+    }
+};
+
+int main() {
+    // Create objects of SavingsAccount and CurrentAccount
+    SavingsAccount savings("SA123", 5000);
+    CurrentAccount current("CA456", 2000);
+
+    // Deposit and withdraw from SavingsAccount
+    savings.displayBalance();
+    savings.deposit(1000);
+    savings.withdraw(2000);
+    savings.displayBalance();
+
+    // Deposit and withdraw from CurrentAccount
+    current.displayBalance();
+    current.deposit(500);
+    current.withdraw(3000);
+    current.displayBalance();
+
+    return 0;
+}
+/*
+output:
+Account Number: SA123
+Balance: 5000
+Deposited 1000 successfully.
+Withdrawn 2000 successfully.
+Account Number: SA123
+Balance: 4300
+Account Number: CA456
+Balance: 2000
+Deposited 500 successfully.
+Withdrawn 3000 successfully.
+Account Number: CA456
+Balance: -500
+*/

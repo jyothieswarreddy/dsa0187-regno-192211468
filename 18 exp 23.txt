@@ -1,0 +1,67 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base class
+class Person {
+protected:
+    string name;
+    int age;
+
+public:
+    Person(string n, int a) : name(n), age(a) {}
+
+    // Virtual function for dynamic binding
+    virtual void display() {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+    }
+};
+
+// Derived class
+class Student : public Person {
+private:
+    int rollNo;
+
+public:
+    Student(string n, int a, int r) : Person(n, a), rollNo(r) {}
+
+    // Overridden function
+    void display() override {
+        cout << "Student Name: " << name << endl;
+        cout << "Student Age: " << age << endl;
+        cout << "Roll No: " << rollNo << endl;
+    }
+};
+
+int main() {
+    // Creating objects
+    Person* personPtr;
+    Person personObj("Alice", 30);
+    Student studentObj("Bob", 20, 12345);
+
+    // Pointing to base class object
+    personPtr = &personObj;
+    cout << "Displaying Person information through base class pointer:" << endl;
+    personPtr->display();
+
+    cout << endl;
+
+    // Pointing to derived class object
+    personPtr = &studentObj;
+    cout << "Displaying Student information through base class pointer:" << endl;
+    personPtr->display();
+
+    return 0;
+}
+/*
+output:Displaying Person information through base class pointer:
+Name: Alice
+Age: 30
+
+Displaying Student information through base class pointer:
+Student Name: Bob
+Student Age: 20
+Roll No: 12345
+*/

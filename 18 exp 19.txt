@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int age;
+
+public:
+    Student(string name, int age) {
+        this->name = name;
+        this->age = age;
+    }
+
+    void displayDetails() {
+        cout << "Student Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+int main() {
+    string name;
+    int age;
+
+    // Input student details
+    cout << "Enter student name: ";
+    getline(cin, name);
+    cout << "Enter student age: ";
+    cin >> age;
+
+    // Dynamically allocate memory for Student object
+    Student *studentPtr = new Student(name, age);
+
+    // Display student details using this pointer
+    studentPtr->displayDetails();
+
+    // Free dynamically allocated memory
+    delete studentPtr;
+
+    return 0;
+}
+/*
+output:
+Enter student name: ram
+Enter student age: 18
+Student Name: ram, Age: 18
+*/

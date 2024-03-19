@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Book {
+private:
+    string title;
+    string author;
+
+public:
+    Book(string t, string a) : title(t), author(a) {}
+
+    void displayDetails() {
+        cout << "Book Details: Title: " << title << ", Author: " << author << endl;
+    }
+};
+
+int main() {
+    string title, author;
+
+    // Input book details
+    cout << "Enter book title: ";
+    getline(cin, title);
+    cout << "Enter book author: ";
+    getline(cin, author);
+
+    // Dynamically allocate memory for Book object
+    Book *bookPtr = new Book(title, author);
+
+    // Display book details using pointer
+    bookPtr->displayDetails();
+
+    // Free dynamically allocated memory
+    delete bookPtr;
+
+    return 0;
+}
+/*
+output:
+Enter book title: the sun rises
+Enter book author: surya
+Book Details: Title: the sun rises, Author: surya
+*/

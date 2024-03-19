@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Base class
+class Vehicle {
+protected:
+    int speed;
+    int fuel;
+
+public:
+    Vehicle(int s, int f) : speed(s), fuel(f) {}
+
+    virtual void printDetails() const = 0; // Pure virtual function
+};
+
+// Derived class Car
+class Car : public Vehicle {
+public:
+    Car(int s, int f) : Vehicle(s, f) {}
+
+    void printDetails() const override {
+        cout << "Car Details: Speed: " << speed << " km/h, Fuel: " << fuel << " liters" << endl;
+    }
+};
+
+// Derived class Bike
+class Bike : public Vehicle {
+public:
+    Bike(int s, int f) : Vehicle(s, f) {}
+
+    void printDetails() const override {
+        cout << "Bike Details: Speed: " << speed << " km/h, Fuel: " << fuel << " liters" << endl;
+    }
+};
+
+int main() {
+    // Create an array of pointers to Vehicle objects
+    vector<Vehicle*> vehicles;
+    vehicles.push_back(new Car(100, 30));
+    vehicles.push_back(new Bike(60, 10));
+
+    // Call printDetails() for each vehicle
+    for (Vehicle* vehicle : vehicles) {
+        vehicle->printDetails();
+    }
+
+    // Free memory
+    for (Vehicle* vehicle : vehicles) {
+        delete vehicle;
+    }
+
+    return 0;
+}
+/*
+output:
+Car Details: Speed: 100 km/h, Fuel: 30 liters
+Bike Details: Speed: 60 km/h, Fuel: 10 liters
+*/
