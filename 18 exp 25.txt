@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+
+class Student {
+private:
+    std::string name;
+    char grade;
+
+public:
+    // Constructor
+    Student(std::string name, char grade) {
+        this->name = name;
+        this->grade = grade;
+    }
+
+    // Function to display name and grade
+    void display() {
+        std::cout << "Name: " << this->name << std::endl;
+        std::cout << "Grade: " << this->grade << std::endl;
+    }
+};
+
+int main() {
+    // Create an instance of Student
+    Student student("John Doe", 'A');
+
+    // Display the name and grade using the display function
+    student.display();
+
+    return 0;
+}
+/*
+output:
+Name: John Doe
+Grade: A
+*/

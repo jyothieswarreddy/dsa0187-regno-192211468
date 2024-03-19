@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+
+class Employee {
+private:
+    std::string name;
+    double salary;
+
+public:
+    // Constructor
+    Employee(std::string name, double salary) {
+        this->name = name;
+        this->salary = salary;
+    }
+
+    // Function to display details
+    void display() {
+        std::cout << "Name: " << this->name << std::endl;
+        std::cout << "Salary: " << this->salary << std::endl;
+    }
+};
+
+int main() {
+    // Create a pointer to an Employee object
+    Employee *empPtr;
+
+    // Dynamically allocate memory for an Employee object
+    empPtr = new Employee("John Doe", 50000.0);
+
+    // Display the details using the pointer
+    empPtr->display();
+
+    // Deallocate memory
+    delete empPtr;
+
+    return 0;
+}
+/*
+output:Name: John Doe
+Salary: 50000
+*/
