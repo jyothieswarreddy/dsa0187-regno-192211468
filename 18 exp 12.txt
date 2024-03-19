@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Vehicle {
+protected:
+    int speed;
+    int fuel;
+
+public:
+    Vehicle(int speed, int fuel) : speed(speed), fuel(fuel) {}
+
+    virtual void displayInfo() {
+        cout << "Speed: " << speed << " km/h, Fuel: " << fuel << " liters" << endl;
+    }
+};
+
+class Car : public Vehicle {
+public:
+    Car(int speed, int fuel) : Vehicle(speed, fuel) {}
+
+    void displayInfo() override {
+        cout << "Car - ";
+        Vehicle::displayInfo();
+    }
+};
+
+class Bike : public Vehicle {
+public:
+    Bike(int speed, int fuel) : Vehicle(speed, fuel) {}
+
+    void displayInfo() override {
+        cout << "Bike - ";
+        Vehicle::displayInfo();
+    }
+};
+
+int main() {
+    Car myCar(120, 30);
+    Bike myBike(80, 10);
+
+    cout << "Vehicle Information:" << endl;
+    myCar.displayInfo();
+    myBike.displayInfo();
+
+    return 0;
+}
+/*
+output:Vehicle Information:
+Car - Speed: 120 km/h, Fuel: 30 liters
+Bike - Speed: 80 km/h, Fuel: 10 liters
+*/
