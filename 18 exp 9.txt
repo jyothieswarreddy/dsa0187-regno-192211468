@@ -1,0 +1,37 @@
+#include <iostream>
+// Base class
+class Animal {
+public:
+    virtual void makeSound() const = 0; // Pure virtual function
+};
+// Derived class Dog
+class Dog : public Animal {
+public:
+    // Implement makeSound for Dog
+    void makeSound() const override {
+        std::cout << "Woof!" << std::endl;
+    }
+};
+// Derived class Cat
+class Cat : public Animal {
+public:
+    // Implement makeSound for Cat
+    void makeSound() const override {
+        std::cout << "Meow!" << std::endl;
+    }
+};
+int main() {
+    // Create instances of Dog and Cat
+    Dog dog;
+    Cat cat;
+    // Make them sound
+    std::cout << "Dog says: ";
+    dog.makeSound();
+    std::cout << "Cat says: ";
+    cat.makeSound();
+    return 0;
+}
+/*
+output:Dog says: Woof!
+Cat says: Meow!
+*/

@@ -1,0 +1,78 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+// Base class
+class Shape {
+public:
+    virtual void draw() = 0;
+    virtual double calculateArea() = 0;
+};
+// Derived class Circle
+class Circle : public Shape {
+private:
+    double radius;
+public:
+    Circle(double r) : radius(r) {}
+    void draw() override {
+        cout << "Drawing Circle" << endl;
+    }
+    double calculateArea() override {
+        return M_PI * radius * radius;
+    }
+};
+// Derived class Rectangle
+class Rectangle : public Shape {
+private:
+    double width, height;
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+    void draw() override {
+        cout << "Drawing Rectangle" << endl;
+    }
+    double calculateArea() override {
+        return width * height;
+    }
+};
+// Derived class Triangle
+class Triangle : public Shape {
+private:
+    double base, height;
+public:
+    Triangle(double b, double h) : base(b), height(h) {}
+    void draw() override {
+        cout << "Drawing Triangle" << endl;
+    }
+    double calculateArea() override {
+        return 0.5 * base * height;
+    }
+};
+int main() {
+    const int numShapes = 3;
+    Shape* shapes[numShapes];
+    // Dynamically allocate objects
+    shapes[0] = new Circle(5.0);
+    shapes[1] = new Rectangle(4.0, 6.0);
+    shapes[2] = new Triangle(3.0, 4.0);
+    // Draw each shape
+    for (int i = 0; i < numShapes; i++) {
+        shapes[i]->draw();
+    }
+    // Calculate and display the area of each shape
+    for (int i = 0; i < numShapes; i++) {
+        cout << "Area of Shape " << i+1 << ": " << shapes[i]->calculateArea() << endl;
+    }
+    // Deallocate memory
+    for (int i = 0; i < numShapes; i++) {
+        delete shapes[i];
+    }
+    return 0;
+}
+/*
+output:
+Drawing Circle
+Drawing Rectangle
+Drawing Triangle
+Area of Shape 1: 78.5398
+Area of Shape 2: 24
+Area of Shape 3: 6
+*/

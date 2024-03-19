@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+using namespace std;
+// Base class
+class Employee {
+protected:
+    int id;
+    string name;
+public:
+    // Constructor
+    Employee(int i, const string& n) : id(i), name(n) {}
+    // Display function
+    virtual void printDetails() {
+        cout << "Employee Details:" << endl;
+        cout << "ID: " << id << endl;
+        cout << "Name: " << name << endl;
+    }
+};
+// Derived class Manager
+class Manager : public Employee {
+private:
+    string department;
+public:
+    // Constructor
+    Manager(int i, const string& n, const string& d) : Employee(i, n), department(d) {}
+    // Display function (overrides base class printDetails)
+    void printDetails() override {
+        Employee::printDetails(); // Call base class printDetails
+        cout << "Department: " << department << endl;
+    }
+};
+int main() {
+    // Create a pointer to Employee
+    Employee* emp = new Manager(101, "John", "HR");
+    // Call printDetails using the pointer
+    emp->printDetails();
+    // Don't forget to free the dynamically allocated memory
+    delete emp;
+    return 0;
+}
+/*
+output:
+Employee Details:
+ID: 101
+Name: John
+Department: HR
+*/

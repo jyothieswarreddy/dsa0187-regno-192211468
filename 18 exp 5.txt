@@ -1,0 +1,57 @@
+#include <iostream>
+class Vector2D {
+private:
+    double x;
+    double y;
+public:
+    // Constructor
+    Vector2D(double _x = 0, double _y = 0) : x(_x), y(_y) {}
+    // Addition operator
+    Vector2D operator+(const Vector2D& other) const {
+        return Vector2D(x + other.x, y + other.y);
+    }
+    // Subtraction operator
+    Vector2D operator-(const Vector2D& other) const {
+        return Vector2D(x - other.x, y - other.y);
+    }
+    // Scalar multiplication operator
+    Vector2D operator*(double scalar) const {
+        return Vector2D(x * scalar, y * scalar);
+    }
+    // Display function
+    void display() const {
+        std::cout << "(" << x << ", " << y << ")";
+    }
+};
+int main() {
+    // Create vectors
+    Vector2D v1(2, 3);
+    Vector2D v2(1, -1);
+    // Perform operations
+    Vector2D* result;
+    // Addition
+    result = new Vector2D(v1 + v2);
+    std::cout << "Addition: ";
+    result->display();
+    std::cout << std::endl;
+    delete result;
+    // Subtraction
+    result = new Vector2D(v1 - v2);
+    std::cout << "Subtraction: ";
+    result->display();
+    std::cout << std::endl;
+    delete result;
+    // Scalar multiplication
+    result = new Vector2D(v1 * 2.5);
+    std::cout << "Scalar Multiplication: ";
+    result->display();
+    std::cout << std::endl;
+    delete result;
+    return 0;
+}
+/*
+output:
+Addition: (3, 2)
+Subtraction: (1, 4)
+Scalar Multiplication: (5, 7.5)
+*/

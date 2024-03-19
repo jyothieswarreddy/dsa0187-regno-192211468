@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base class
+class BankAccount {
+protected:
+    string accountNumber;
+    double balance;
+
+public:
+    // Constructor
+    BankAccount(const string& accNum, double initialBalance) : accountNumber(accNum), balance(initialBalance) {}
+
+    // Deposit function
+    void deposit(double amount) {
+        balance += amount;
+        cout << "Deposited $" << amount << ". New balance is $" << balance << endl;
+    }
+
+    // Withdraw function
+    virtual void withdraw(double amount) = 0;
+};
+
+// Derived class SavingsAccount
+class SavingsAccount : public BankAccount {
+public:
+    // Constructor
+    SavingsAccount(const string& accNum, double initialBalance) : BankAccount(accNum, initialBalance) {}
+
+    // Withdraw function
+    void withdraw(double amount) override {
+        if (balance - amount >= 0) {
+            balance -= amount;
+            cout << "Withdrawn $" << amount << ". New balance is $" << balance << endl;
+        } else {
+            cout << "Insufficient funds. Cannot withdraw $" << amount << endl;
+        }
+    }
+};
+
+// Derived class CurrentAccount
+class CurrentAccount : public BankAccount {
+public:
+    // Constructor
+    CurrentAccount(const string& accNum, double initialBalance) : BankAccount(accNum, initialBalance) {}
+
+    // Withdraw function
+    void withdraw(double amount) override {
+        balance -= amount;
+        cout << "Withdrawn $" << amount << ". New balance is $" << balance << endl;
+    }
+};
+
+int main() {
+    // Create SavingsAccount object
+    SavingsAccount savings("SA123", 1000);
+
+    // Deposit and withdraw from SavingsAccount
+    savings.deposit(500);
+    savings.withdraw(200);
+    savings.withdraw(2000);
+
+    // Create CurrentAccount object
+    CurrentAccount current("CA456", 2000);
+
+    // Deposit and withdraw from CurrentAccount
+    current.deposit(1000);
+    current.withdraw(3000);
+
+    return 0;
+}
+/*
+output:Deposited $500. New balance is $1500
+Withdrawn $200. New balance is $1300
+Insufficient funds. Cannot withdraw $2000
+Deposited $1000. New balance is $3000
+Withdrawn $3000. New balance is $0
+*/

@@ -1,0 +1,133 @@
+#include <iostream>
+class Node {
+public:
+    int data;
+    Node* left;
+    Node* right;
+    // Constructor
+    Node(int value) : data(value), left(nullptr), right(nullptr) {}
+};
+class BST {
+private:
+    Node* root;
+    // Helper function to recursively insert a node
+    Node* insertRecursive(Node* current, int value) {
+        if (current == nullptr) {
+            return new Node(value);
+        }
+        if (value < current->data) {
+            current->left = insertRecursive(current->left, value);
+        } else if (value > current->data) {
+            current->right = insertRecursive(current->right, value);
+        }
+        return current;
+    }
+    // Helper function to recursively search for a node
+    Node* searchRecursive(Node* current, int value) {
+        if (current == nullptr || current->data == value) {
+            return current;
+        }
+        if (value < current->data) {
+            return searchRecursive(current->left, value);
+        }
+        return searchRecursive(current->right, value);
+    }
+    // Helper function to find the minimum value node in a subtree
+    Node* findMin(Node* node) {
+        Node* current = node;
+        while (current && current->left != nullptr) {
+            current = current->left;
+        }
+        return current;
+    }
+    // Helper function to recursively delete a node
+    Node* deleteRecursive(Node* current, int value) {
+        if (current == nullptr) {
+            return current;
+        }
+        if (value < current->data) {
+            current->left = deleteRecursive(current->left, value);
+        } else if (value > current->data) {
+            current->right = deleteRecursive(current->right, value);
+        } else {
+            // Node to delete found
+            if (current->left == nullptr) {
+                Node* temp = current->right;
+                delete current;
+                return temp;
+            } else if (current->right == nullptr) {
+                Node* temp = current->left;
+                delete current;
+                return temp;
+            }
+            // Node with two children: Get the inorder successor (smallest
+            // in the right subtree)
+            Node* temp = findMin(current->right);
+            // Copy the inorder successor's content to this node
+            current->data = temp->data;
+            // Delete the inorder successor
+            current->right = deleteRecursive(current->right, temp->data);
+        }
+        return current;
+    }
+public:
+    // Constructor
+    BST() : root(nullptr) {}
+    // Insert a node into the BST
+    void insert(int value) {
+        root = insertRecursive(root, value);
+    }
+    // Search for a node in the BST
+    bool search(int value) {
+        Node* result = searchRecursive(root, value);
+        return result != nullptr;
+    }
+    // Delete a node from the BST
+    void remove(int value) {
+        root = deleteRecursive(root, value);
+    }
+    // Inorder traversal to print the BST
+    void inorder(Node* node) {
+        if (node != nullptr) {
+            inorder(node->left);
+            std::cout << node->data << " ";
+            inorder(node->right);
+        }
+    }
+    // Display the BST
+    void display() {
+        inorder(root);
+        std::cout << std::endl;
+    }
+};
+int main() {
+    BST bst;
+    // Insert elements
+    bst.insert(50);
+    bst.insert(30);
+    bst.insert(20);
+    bst.insert(40);
+    bst.insert(70);
+    bst.insert(60);
+    bst.insert(80);
+    // Display the BST
+    std::cout << "BST after insertion: ";
+    bst.display();
+    // Search for elements
+    std::cout << "Searching for 20: " << (bst.search(20) ? "Found" : "Not Found") << std::endl;
+    std::cout << "Searching for 100: " << (bst.search(100) ? "Found" : "Not Found") << std::endl;
+    // Delete elements
+    bst.remove(20);
+    bst.remove(30);
+    // Display the BST
+    std::cout << "BST after deletion: ";
+    bst.display();
+    return 0;
+}
+/*
+output:
+BST after insertion: 20 30 40 50 60 70 80 
+Searching for 20: Found
+Searching for 100: Not Found
+BST after deletion: 40 50 60 70 80 
+*/

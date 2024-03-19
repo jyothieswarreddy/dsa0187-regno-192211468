@@ -1,0 +1,45 @@
+#include <iostream>
+// Base class
+class Shape {
+public:
+    virtual double getArea() const = 0; // Pure virtual function
+};
+// Derived class Rectangle
+class Rectangle : public Shape {
+private:
+    double width;
+    double height;
+public:
+    // Constructor
+    Rectangle(double w, double h) : width(w), height(h) {}
+    // Calculate area of rectangle
+    double getArea() const override {
+        return width * height;
+    }
+};
+// Derived class Circle
+class Circle : public Shape {
+private:
+    double radius;
+public:
+    // Constructor
+    Circle(double r) : radius(r) {}
+    // Calculate area of circle
+    double getArea() const override {
+        return 3.14159 * radius * radius;
+    }
+};
+int main() {
+    // Create instances of Rectangle and Circle
+    Rectangle rect(4, 5);
+    Circle circle(3);
+    // Calculate and display areas
+    std::cout << "Area of rectangle: " << rect.getArea() << std::endl;
+    std::cout << "Area of circle: " << circle.getArea() << std::endl;
+    return 0;
+}
+/*
+output:
+Area of rectangle: 20
+Area of circle: 28.2743
+*/

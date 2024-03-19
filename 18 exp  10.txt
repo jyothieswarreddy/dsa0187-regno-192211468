@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+using namespace std;
+// Base class
+class Employee {
+protected:
+    string name;
+    double salary;
+public:
+    // Constructor
+    Employee(string name, double salary) : name(name), salary(salary) {}
+    // Display function
+    virtual void display() const {
+        cout << "Name: " << name << ", Salary: " << salary << endl;
+    }
+};
+// Derived class for Manager
+class Manager : public Employee {
+private:
+    string department;
+public:
+    // Constructor
+    Manager(string name, double salary, string department) : Employee(name, salary), department(department) {}
+    // Display function
+    void display() const override {
+        cout << "Manager - Name: " << name << ", Salary: " << salary << ", Department: " << department << endl;
+    }
+};
+// Derived class for Worker
+class Worker : public Employee {
+public:
+    // Constructor
+    Worker(string name, double salary) : Employee(name, salary) {}
+    // Display function
+    void display() const override {
+        cout << "Worker - Name: " << name << ", Salary: " << salary << endl;
+    }
+};
+int main() {
+    Manager manager("John Doe", 50000, "Engineering");
+    Worker worker("Jane Smith", 30000);
+    cout << "Manager details:" << endl;
+    manager.display();
+    cout << endl << "Worker details:" << endl;
+    worker.display();
+    return 0;
+}
+/*
+output:Manager details:
+Manager - Name: John Doe, Salary: 50000, Department: Engineering
+
+Worker details:
+Worker - Name: Jane Smith, Salary: 30000
+*/
